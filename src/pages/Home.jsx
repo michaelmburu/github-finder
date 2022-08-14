@@ -1,13 +1,14 @@
-import React from 'react'
 
-const 
-h1 = () => {
+import UserResults from '../components/users/UserResults'
+
+const Home = () => {
+
   return (
-    <div>
-      <h1 className='text-6xl'> Welcome Home</h1>
-    </div>
+    <>
+      {/* Search Component Will Be Added Here */}
+      <UserResults />
+    </>
   )
 }
 
-export default 
-h1
+export default Home
