@@ -13,8 +13,8 @@ const About = () => {
         <p className='text-lg text-gray-400'>
           FrontEnd Engineer:
         
-          <a className='text-white mx-2' href='https://twitter.com/codercety'>
-            Michael Mburu   
+          <a className='text-white mx-2' href='https://twitter.com/hotepsun'>
+            Hotepsun   
             <FaTwitter className='inline pr-2 mx-2 text-3xl' />
           </a>
          
