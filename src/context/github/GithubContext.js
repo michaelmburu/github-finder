@@ -3,9 +3,9 @@ import GithubReducer from './GithubReducer'
 
 const GitHubContext = createContext()
 
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
+const GITHUB_URL = "https://api.github.com"
 
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
+
 
 export const GithubProvider = ({children}) => {
     
@@ -27,7 +27,7 @@ export const GithubProvider = ({children}) => {
 
         const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
             headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
+                // Authorization: `token ${GITHUB_TOKEN}`
             }
         })
 
@@ -45,13 +45,13 @@ export const GithubProvider = ({children}) => {
 
         const userResponse = await fetch(`${GITHUB_URL}/users/${login}`, {
             headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
+                // Authorization: `token ${GITHUB_TOKEN}`
             }
         })
 
         const reposResponse = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
             headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
+                // Authorization: `token ${GITHUB_TOKEN}`
             }
         })
 
