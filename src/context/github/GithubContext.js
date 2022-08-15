@@ -5,8 +5,6 @@ const GitHubContext = createContext()
 
 const GITHUB_URL = "https://api.github.com"
 
-
-
 export const GithubProvider = ({children}) => {
     
     const initialState = {
