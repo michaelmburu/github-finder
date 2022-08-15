@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useContext } from 'react'
+import AlertContext from '../../context/alert/AlertContext'
 import GitHubContext from '../../context/github/GithubContext'
 
 const UserSearch = () => {
@@ -10,11 +11,13 @@ const UserSearch = () => {
 
     const {users, searchUsers, clearSearchUsers} = useContext(GitHubContext)
     
+    const {setAlert} = useContext(AlertContext)
+
     const handleSearchSubmit = (e) => {
         e.preventDefault()
 
         if(text === '') {
-            alert('Enter a profile name')
+            setAlert('Enter a profile name', 'error')
         } else {
             searchUsers(text)
             setText('')
@@ -27,7 +30,7 @@ const UserSearch = () => {
         clearSearchUsers()
     }
     return (
-        <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 mb-8 gap-8'>
+        <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-1 md:grid-cols-2 mb-8 gap-8'>
             <div>
                 <form onSubmit={handleSearchSubmit}>
                     <div className="form-control">
