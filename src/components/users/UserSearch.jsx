@@ -30,7 +30,7 @@ const UserSearch = () => {
     const handleClearSearch = () => {
 
         setText('')
-        dispatch({type: 'CLEAR_USERS'})
+        dispatch({type: 'CLEAR_USERS', payload: []})
 
     }
 
