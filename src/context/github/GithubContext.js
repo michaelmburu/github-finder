@@ -47,28 +47,52 @@ export const GithubProvider = ({children}) => {
             }
         })
 
-        const reposResponse = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
+     
+
+        if(userResponse.status === 404) {
+            window.location = '/notfound' 
+        } else if(userResponse.status === 403) {
+            window.location = '/ratelimit'
+        }
+        else {
+            const userdata = await userResponse.json()
+          
+            dispatch({
+                type: 'GET_USER',
+                payload: userdata
+            })
+         
+        }       
+    }
+
+    const getUserRepos = async (login) => {
+        setLoading()
+
+        const params = new URLSearchParams({
+            sort: 'created',
+            per_page: 10
+        })
+
+        const reposResponse = await fetch(`${GITHUB_URL}/users/${login}/repos?${params}`, {
             headers: {
                 // Authorization: `token ${GITHUB_TOKEN}`
             }
         })
 
-        if(reposResponse.status === 404) {
-            window.location = '/notfound' 
+        if (reposResponse.status === 404) {
+            window.location = './notfound'
+        } else if(reposResponse.status === 403) {
+            window.location = '/ratelimit'
         }
-        else {
-            const userdata = await userResponse.json()
+        else{
             const reposdata = await reposResponse.json()
 
             dispatch({
-                type: 'GET_USER',
-                payload: userdata
-            })
-            dispatch({
                 type: 'GET_REPOS',
                 payload: reposdata
-            })
-        }       
+            })    
+        }
+       
     }
 
     const clearSearchUsers = async () => {
@@ -104,13 +128,12 @@ export const GithubProvider = ({children}) => {
     return (
         <GitHubContext.Provider 
         value={{
-            users: state.users, 
-            repos: state.repos,
-            user: state.user,
-            loading: state.loading,
+            ...state,
+            dispatch,
             searchUsers,
             clearSearchUsers,
             getUser,
+            getUserRepos
         }}
         >
             {children}

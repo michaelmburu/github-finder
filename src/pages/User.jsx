@@ -9,14 +9,15 @@ import RepoList from '../components/repos/RepoList'
 
 const User = () => {
 
-    const {getUser, user, repos, loading} = useContext(GitHubContext)
+    const {getUser, getUserRepos, user, repos, loading} = useContext(GitHubContext)
 
     const params = useParams()
 
    
     useEffect(() => {
         getUser(params.login)
-         // eslint-disable-next-line react-hooks/exhaustive-deps
+        getUserRepos(params.login)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const {
@@ -36,8 +37,6 @@ const User = () => {
         hireable,
 
     } = user
-
-    console.log(repos)
 
     if(loading) {
     return <Spinner />
