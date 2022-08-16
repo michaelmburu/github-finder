@@ -29,8 +29,6 @@ export const getUser = async (login) => {
         }
     })
 
- 
-
     if(userResponse.status === 404) {
         window.location = '/notfound' 
     } else if(userResponse.status === 403) {
