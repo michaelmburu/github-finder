@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useContext } from 'react'
 import AlertContext from '../../context/alert/AlertContext'
 import GitHubContext from '../../context/github/GithubContext'
+import {searchUsers} from '../../context/github/GithubActions'
 
 const UserSearch = () => {
 
@@ -9,17 +10,19 @@ const UserSearch = () => {
 
     const handleSearchChange = (e) => setText(e.target.value)
 
-    const {users, searchUsers, clearSearchUsers} = useContext(GitHubContext)
+    const {users, dispatch,} = useContext(GitHubContext)
     
     const {setAlert} = useContext(AlertContext)
 
-    const handleSearchSubmit = (e) => {
+    const handleSearchSubmit = async (e) => {
         e.preventDefault()
 
         if(text === '') {
             setAlert('Enter a profile name', 'error')
         } else {
-            searchUsers(text)
+            dispatch({type: 'SET_LOADING'})
+            const users = await searchUsers(text)
+            dispatch({type: 'GET_USERS', payload: users})
             setText('')
         }
     }
@@ -27,8 +30,11 @@ const UserSearch = () => {
     const handleClearSearch = () => {
 
         setText('')
-        clearSearchUsers()
+        dispatch({type: 'CLEAR_USERS'})
+
     }
+
+    
     return (
         <div className='grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-1 md:grid-cols-2 mb-8 gap-8'>
             <div>
